@@ -1,12 +1,12 @@
 const routes = require('./routes');
 const config = require('./config');
-const error = require('./error');
+const database = require('./database');
 
 module.exports = function(app, express){
 
     config(app, express);
 
-    // error(app);
-
     routes(app);
+
+    database(app);
 }
