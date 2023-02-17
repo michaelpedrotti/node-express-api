@@ -28,3 +28,5 @@ class AbstractService {
         throw new Error('Paginate was not implemented');
     }
 }
+
+module.exports = AbstractService;
