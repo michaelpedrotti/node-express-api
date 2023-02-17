@@ -1,0 +1,7 @@
+FROM pedrotti/node-express
+COPY . .
+RUN npm install -g nodemon
+RUN npm update
+CMD nodemon --ext js --ignore node_modules/ main.js
+# docker build --no-cache -f Dockerfile.dev -t pedrotti/node-express:dev .
+# docker-compose up -d

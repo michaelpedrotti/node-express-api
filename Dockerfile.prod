@@ -1,0 +1,8 @@
+FROM pedrotti/node-express:latest
+COPY . .
+RUN npm update
+# docker build --no-cache -f Dockerfile.prod -t pedrotti/node-express:v1.0 .
+# docker tag pedrotti/node-express:v1.0 pedrotti/node-express:latest
+# docker push pedrotti/node-express:latest
+# docker push pedrotti/node-express:v1.0
+# docker run -d --name node-express-rest -p 3000:3000 pedrotti/node-express:latest
