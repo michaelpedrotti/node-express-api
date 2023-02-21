@@ -1,7 +1,6 @@
 version: "3"
 services:
-  supercut:
-    container_name: node-express-rest
+  node:
     image: pedrotti/node-express:dev
     volumes:
       - /usr/src/app/node_modules
@@ -9,12 +8,22 @@ services:
     ports:
       - "3000:3000"
     environment:
-      # DB_CONNECTION_URL: 'mysql://root:root@127.0.0.1:3306/app' # Migrations connector
+      # DB_CONNECTION_URL: 'mysql://root:root@dbhost:3306/app'
       DB_DIALECT: 'mysql'
-      DB_HOST: '127.0.0.1'
+      DB_HOST: 'dbhost'
       DB_PORT: '3306'
       DB_USERNAME: 'root'
       DB_PASSWORD: 'root'
       DB_NAME: 'app'
       JWT_SECRET: '5f04828ed29602f8dfe1822d20ba58ff10aa4828b8e986e357658423cfa971f1'
+    links:
+      - mysql:dbhost
+    network_mode: bridge
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+    ports:
+      - 3306:3306
     network_mode: bridge

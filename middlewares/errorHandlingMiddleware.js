@@ -1,12 +1,7 @@
-/**
- * Error Handling
- * 
- * @link https://expressjs.com/en/guide/error-handling.html
- */
- module.exports = function (app) {
+class ErrorHandlingMiddleware {
 
-    app.use(function(err, req, res, next) {
-        
+    static async register(err, req, res, next) {
+
         if (res.headersSent) {
             return next(err);
         }
@@ -15,5 +10,7 @@
 
         res.status(err.httpCode || 500);
         res.json({ error: true, message: err.message });
-    });
+    }
 }
+
+module.exports = ErrorHandlingMiddleware;

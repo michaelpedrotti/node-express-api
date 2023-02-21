@@ -1,7 +1,34 @@
 const express = require('express');
-const loaders = require('./loaders');
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const { database } = require('./helpers/connectionHelper');
+const ErrorHandlingMiddleware = require('./middlewares/errorHandlingMiddleware');
 const app = express();
 
-loaders(app, express);
+//=================================================================
+// Config
+//=================================================================
+// https://expressjs.com/en/resources/middleware/cors.html
+app.use(cors({ credentials: true, origin: true }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(ErrorHandlingMiddleware.register);
+//=================================================================
+// Routes
+//=================================================================
+app.use('/user', require('../routes/user'));
+app.use('/profile', require('../routes/profile'));
+app.use('/permission', require('../routes/permission'));
+app.use('/', require('../routes/main'));
+//=================================================================
+// Connections
+//=================================================================
+global.sequelize = database();
+//@todo: redis
 
 module.exports = app;
