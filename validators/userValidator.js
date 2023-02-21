@@ -9,15 +9,15 @@ const userSchema = {
     
     name: {
         notEmpty:{
-            errorMessage: _('Name is required')
+            errorMessage: 'Name is required'
         }
     },
     email: {
         notEmpty:{
-            errorMessage: _('E-mail is required')
+            errorMessage: 'E-mail is required'
         },
         isEmail: {
-          errorMessage: _('Invalid e-mail')
+          errorMessage: 'Invalid e-mail'
         }
     }
 };

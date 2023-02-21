@@ -3,6 +3,7 @@ const app = require('./app');
 //=================================================================
 // Config Lambda
 //=================================================================
+// npm install express-session connect-session-sequelize 
 const session = require('express-session');
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 // const { createClient } = require("redis");

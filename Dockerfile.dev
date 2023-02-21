@@ -1,4 +1,5 @@
-FROM pedrotti/node-express
+FROM pedrotti/node:express
+ENV NODE_ENV development
 COPY . .
 RUN npm install -g nodemon
 RUN npm update

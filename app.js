@@ -19,16 +19,17 @@ app.use(bodyParser.json());
 
 app.use(ErrorHandlingMiddleware.register);
 //=================================================================
-// Routes
-//=================================================================
-app.use('/user', require('../routes/user'));
-app.use('/profile', require('../routes/profile'));
-app.use('/permission', require('../routes/permission'));
-app.use('/', require('../routes/main'));
-//=================================================================
 // Connections
 //=================================================================
 global.sequelize = database();
 //@todo: redis
+
+//=================================================================
+// Routes
+//=================================================================
+app.use('/user', require('./routes/user'));
+app.use('/profile', require('./routes/profile'));
+app.use('/permission', require('./routes/permission'));
+app.use('/', require('./routes/main'));
 
 module.exports = app;

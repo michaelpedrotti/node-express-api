@@ -1,4 +1,5 @@
-FROM pedrotti/node-express:latest
+FROM pedrotti/node:express:latest
+ENV NODE_ENV production
 COPY . .
 RUN npm update
 # docker build --no-cache -f Dockerfile.prod -t pedrotti/node-express:v1.0 .
