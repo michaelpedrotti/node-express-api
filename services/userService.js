@@ -4,6 +4,20 @@ const AbstractService = require('./abstractService');
 
 class UserService extends AbstractService {
 
+    static async login(email = ''){
+
+        const model = await UserModel.scope('show').findOne({
+            where: { email: email }
+            raw: true
+        });
+
+        if(!model) {
+            throw new Error('User was not found'); 
+        }
+
+        return model;
+    }
+
     static async create(data = {}, options = {}) {
 
         let [password, encrypt] = passwordGenerator();

@@ -1,10 +1,35 @@
 const jwt = require('jsonwebtoken');
+const { passwordCompare } = require('../helpers/passwordHelper');
+const UserModel = require('../models/userModel');
 
 /**
  * 
  * @url https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs 
  */
 class AuthenticationJwtService {
+
+    async authenticate(email = '', password = ''){
+
+        let model = await UserModel.findOne({
+            raw: true,
+            where: {'email': email},
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+        });
+    
+        if(!model){
+            
+            throw new Error('E-mail was not found');
+        }
+    
+        if(!passwordCompare(password, model['password'])){
+    
+            throw new Error(_('E-mail or Password were wrong'));
+        }
+    
+        delete model['password'];
+
+        return model;
+    }
 
     generate(email = '') {
 
