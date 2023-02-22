@@ -39,7 +39,7 @@ PermissionModel.init({
     sequelize: global.sequelize,
     modelName:'PermissionModel',
     tableName: 'permission',
-    timestamps: true
+    timestamps: false
 });
 
  

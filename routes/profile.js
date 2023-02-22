@@ -7,4 +7,5 @@ module.exports = require('express').Router()
     .get('/new', Controller.new)
     .get('/:id', Controller.show)
     .post('/', Controller.create)
-    .get('/', Controller.index);
+    .get('/', Controller.index)
+    .use('/:profile/permission', require('./permission'));

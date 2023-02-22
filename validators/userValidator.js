@@ -35,6 +35,11 @@ const userSchema = {
                 });
             }
         }
+    },
+    profile_id: {
+        notEmpty:{
+            errorMessage: 'Profile is required'
+        }
     }
 };
 

@@ -9,9 +9,10 @@ class UserService extends AbstractService {
         let [password, encrypt] = passwordGenerator();
 
         const model = await UserModel.create({
-            name: data['name'],
-            email: data['email'],
-            password: encrypt
+            'name': data['name'],
+            'email': data['email'],
+            'profile_id': data['profile_id'],
+            'password': encrypt
         }, options);
 
         return String(password);
