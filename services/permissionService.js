@@ -1,10 +1,18 @@
 const PermissionModel = require('../models/permissionModel');
+const ProfileModel = require('../models/profileModel');
 const AbstractService = require('./abstractService');
 
 class PermissionService extends AbstractService {
 
+    static async profiles(){
+
+        return await ProfileModel.findAll({
+            attributes: ['id', 'name']
+        });
+    }
+
     static async create(data = {}, options = {}) {
-        console.log('data', data);
+
         const model = await PermissionModel.create({
             'resource': data['resource'],
             'actions': data['actions'],
@@ -39,7 +47,7 @@ class PermissionService extends AbstractService {
         return model;
     }
 
-    static async delete(id = 0, options = {}) {
+    static async delete(id = 0, profile = 0, options = {}) {
 
         const model = await PermissionModel.findByPk(id);
 

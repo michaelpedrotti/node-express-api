@@ -73,7 +73,13 @@ class PermissionController extends AbstractController {
 
     static async edit(req, res) { 
 
-       PermissionController.show(req, res);
+        res.json({ 
+            error: false, 
+            data: await PermissionService.find(req.params.id, true),
+            form: {
+                profiles: await PermissionService.profiles(),
+            }
+        });
     }
 
     static async create(req, res) { 
@@ -120,12 +126,20 @@ class PermissionController extends AbstractController {
 
     static async new(req, res) {
 
-        res.json({ error: false });
+        res.json({ 
+            error: false, 
+            form: {
+                profiles: await PermissionService.profiles(),
+            }
+        });
     }
 
     static async show(req, res) { 
 
-        res.json({ error: false, data: await PermissionService.find(req.params.id, true)});
+        res.json({ 
+            error: false, 
+            data: await PermissionService.find(req.params.id, true)
+        });
     }
 
     static async index(req, res) {
