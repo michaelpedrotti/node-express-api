@@ -73,11 +73,11 @@ class PermissionController extends AbstractController {
 
     static async edit(req, res) { 
 
-       UserController.show(req, res);
+       PermissionController.show(req, res);
     }
 
     static async create(req, res) { 
-        
+
         let json = { error: false };
 
         try {

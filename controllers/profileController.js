@@ -77,6 +77,8 @@ class ProfileController extends AbstractController {
     }
 
     static async create(req, res) { 
+
+        console.log('create');
         
         let json = { error: false };
 
