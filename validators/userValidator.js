@@ -18,6 +18,22 @@ const userSchema = {
         },
         isEmail: {
           errorMessage: 'Invalid e-mail'
+        },
+        custom: {
+            // https://express-validator.github.io/docs/custom-validators-sanitizers.html
+            options: (value, { req }) => {
+
+                return UserModel.findOne({'where': {'email': value}}).then(model => {
+                    
+                    if (model) {
+
+                        if(model.id != req.params.id){
+
+                            return Promise.reject('E-mail is already being used');
+                        }
+                    }
+                });
+            }
         }
     }
 };

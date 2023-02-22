@@ -11,17 +11,17 @@ module.exports = {
     return queryInterface.createTable('permission', {
 
       id:{
-          type: DataTypes.INTEGER,
-          autoIncrement: true,
-          primaryKey: true
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
       },
       resource:{
-          type: DataTypes.STRING(50),
-          allowNull: false
+        type: DataTypes.STRING(50),
+        allowNull: false
       },
       actions:{
-          type: DataTypes.JSON(),
-          allowNull: false
+        type: DataTypes.JSON(),
+        allowNull: false
       }
     });
   },

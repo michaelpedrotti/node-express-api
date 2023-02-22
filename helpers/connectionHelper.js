@@ -12,16 +12,28 @@ class ConnectionHelper extends AbstractHelper {
      * Return a database connection 
      * 
      * @link https://sequelize.org/docs/v6/other-topics/aws-lambda/
+     * @returns { Sequelize }
      */
     static database(){
 
         if(!ConnectionHelper.sequelize) {
 
-            if(process.env.DB_CONNECTION_URL) {
+            const options = {
+                logging: false,// console.log
+                pool: {
+                    max: 5,
+                    min: 0,
+                    acquire: 60000,
+                    idle: 30000
+                    // evict: CURRENT_LAMBDA_FUNCTION_TIMEOUT
+                }
+            };
 
-                ConnectionHelper.sequelize  = new Sequelize(process.env.DB_CONNECTION_URL);
-            }
-            else {
+            // if(process.env.DB_CONNECTION_URL) {
+
+            //     ConnectionHelper.sequelize  = new Sequelize(process.env.DB_CONNECTION_URL, options);
+            // }
+            // else {
         
                 const database = process.env.DB_NAME || 'app';
                 const username = process.env.DB_USERNAME || 'root';
@@ -30,22 +42,10 @@ class ConnectionHelper extends AbstractHelper {
                 const dialect = process.env.DB_DIALECT || 'mysql';
                 const host = process.env.DB_HOST || '127.0.0.1';
                 const port = Number(process.env.DB_PORT || 3306);
+
         
-                ConnectionHelper.sequelize =  new Sequelize(database, username, password, {
-                        host,
-                        port,
-                        dialect,
-                        logging: false,
-                        pool: {
-                            max: 5,
-                            min: 0,
-                            acquire: 60000,
-                            idle: 30000
-                            // evict: CURRENT_LAMBDA_FUNCTION_TIMEOUT
-                        }
-                    }
-                );
-            }
+                ConnectionHelper.sequelize =  new Sequelize(database, username, password, { host, port, dialect, ...options });
+            // }
         }
 
         return ConnectionHelper.sequelize;

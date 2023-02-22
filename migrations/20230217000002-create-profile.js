@@ -11,13 +11,21 @@ module.exports = {
     return queryInterface.createTable('profile', {
 
       id:{
-          type: DataTypes.INTEGER,
-          autoIncrement: true,
-          primaryKey: true
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
       },
       name:{
-          type: DataTypes.STRING(100),
-          allowNull: false
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      createdAt:{
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      updatedAt:{
+        type: DataTypes.DATE,
+        allowNull: true
       }
     });
   },

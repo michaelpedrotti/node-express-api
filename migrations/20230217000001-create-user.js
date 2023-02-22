@@ -10,23 +10,31 @@ module.exports = {
   up: (queryInterface, { DataTypes }) => {
     return queryInterface.createTable('user', {
       id:{
-          type: DataTypes.INTEGER,
-          autoIncrement: true,
-          primaryKey: true
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
       },
       name:{
-          type: DataTypes.STRING,
-          allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false
       },
       email:{
-          unique: true,
-          type: DataTypes.STRING,
-          allowNull: false
+        unique: true,
+        type: DataTypes.STRING,
+        allowNull: false
       },
       password:{
-          type: DataTypes.STRING(100),
-          allowNull: false
-      }
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      createdAt:{
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      updatedAt:{
+        type: DataTypes.DATE,
+        allowNull: true
+      },
     });
   },
 

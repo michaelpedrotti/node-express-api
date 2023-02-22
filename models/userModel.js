@@ -25,7 +25,7 @@ UserModel.init({
     password:{
         type: DataTypes.STRING(100),
         allowNull: false
-    },
+    }
 },
 {
     sequelize: global.sequelize,
@@ -35,7 +35,7 @@ UserModel.init({
     scopes: {
         'show': {
             attributes: { 
-                exclude: ['password', 'createdAt', 'updatedAt'] 
+                exclude: ['password'] 
             }
         }
     }
