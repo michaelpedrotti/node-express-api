@@ -57,9 +57,7 @@ class UserService extends AbstractService {
 
     static async paginate(req, where = {}, joins = []) {
 
-        let data = {'count': 0, 'rows': []};
-
-        console.log('body',req.body);
+        let data = { count: 0, rows: []};
 
         try {
 
@@ -71,8 +69,8 @@ class UserService extends AbstractService {
                 attributes: ['id', 'email', 'name'],
                 where: where,
                 order: order,
-                limit: parseInt(req.query.length || 10),
-                offset: parseInt(req.query.start || 0),
+                limit: Number(req.query.length || 10),
+                offset: Number(req.query.start || 0),
             });
         }
         catch(err){

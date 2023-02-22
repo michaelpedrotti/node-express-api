@@ -19,7 +19,7 @@ class UserController extends AbstractController {
                 await UserService.delete(req.params.id, options);
             });
 
-            json.message = 'User has been successfully removed';
+            json.message = 'User was removed';
         }
         catch(err){
 
@@ -57,7 +57,7 @@ class UserController extends AbstractController {
                 await UserService.update(req.body, req.params.id, options);
             });
 
-            json.message = 'User has been updated successfully';
+            json.message = 'User was updated';
         }
         catch(err){
         
@@ -100,9 +100,7 @@ class UserController extends AbstractController {
                 return await UserService.create(req.body, options);
             });
 
-            console.log('password2', password);
-
-            json.message = 'User was successfully created';
+            json.message = 'User was created';
             json.data = { password };
         }
         catch(err) {
@@ -134,11 +132,9 @@ class UserController extends AbstractController {
 
         if(count > 0){
 
-            //rows.map(row => { row.createdAt = moment(row.createdAt).format('YYYY-MM-DD hh:mm') });
+            json.count = count;
+            json.rows = rows;
         }
-
-        json.count = count;
-        json.rows = rows;
 
         res.json(json);
     };  

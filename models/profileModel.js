@@ -7,6 +7,7 @@ const { DataTypes, Model } = require('sequelize');
 class ProfileModel extends Model {}
  
 ProfileModel.init({
+    
     id:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -21,14 +22,7 @@ ProfileModel.init({
     sequelize: global.sequelize,
     modelName:'ProfileModel',
     tableName: 'profile',
-    timestamps: true,
-    scopes: {
-        'show': {
-            attributes: { 
-                exclude: ['createdAt', 'updatedAt'] 
-            }
-        }
-    }
+    timestamps: true
 });
 
 module.exports = ProfileModel;

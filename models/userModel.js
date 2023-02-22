@@ -22,6 +22,17 @@ UserModel.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    profile_id:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            name: 'fk_63f64cc127e85',
+            model: 'profile',
+            key: 'id'
+        },
+        onUpdate: 'NO ACTION',
+        onDelete: 'CASCADE'
+    },
     password:{
         type: DataTypes.STRING(100),
         allowNull: false

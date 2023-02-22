@@ -9,10 +9,22 @@ const { DataTypes, Model } = require('sequelize');
 class PermissionModel extends Model {}
  
 PermissionModel.init({
+    
     id:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
+    },
+    profile_id:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            name: 'fk_6398c8302c1e7',
+            model: 'profile',
+            key: 'id'
+        },
+        onUpdate: 'NO ACTION',
+        onDelete: 'CASCADE'
     },
     resource:{
         type: DataTypes.STRING(50),
