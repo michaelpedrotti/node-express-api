@@ -1,11 +1,12 @@
 class AuthorizationMiddleware {
 
+    static isAuthorized(resource = 'user', action = 'read') {
 
-    static async isAllowed(req, res, next) {
+        return async(req, res, next) => {
 
-        next();
+            next();
+        }; 
     }
-
 }
 
 module.exports = AuthorizationMiddleware;

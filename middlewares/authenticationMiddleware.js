@@ -2,26 +2,26 @@ const AuthenticationJwtService = require("../services/authenticationJwtService")
 
 class AuthenticationMiddleware {
 
-    static async isLogged(req, res, next) {
+    static async isAuthenticated(req, res, next) {
 
-        const token = String(req.headers['authorization']).replace('Bearer ', '');
-    
         try {
 
-            if(AuthenticationJwtService.newInstance().verify(token)) {
+            if(!req.headers['authorization']){
 
-                next();
+                throw new Error('No Authorization header was sent');
             }
-            else {
 
-                res.status(403).json({error: true, message: 'Invalid token'});
-            }
+            const token = String(req.headers['authorization']).replace('Bearer ', '');
+
+            AuthenticationJwtService.newInstance().verify(token);
+            next();
         }
         catch(err) {
 
-            res.status(403).json({error: true, message: err.message});
-
-            // console.error('AuthenticationMiddleware', err); AWS Cloud Watch
+            res.status(403).json({
+                error: true, 
+                message: err.message
+            });
         }
     }
 
