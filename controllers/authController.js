@@ -27,6 +27,25 @@ class AuthController {
 
         res.json(json);
     }
+
+    static async verify(req, res){
+
+        let json = { error: false };
+
+        try {
+
+            const service = AuthenticationJwtService.newInstance();
+
+            json.data = service.verify(req.body.token);
+        }
+        catch(err){
+
+            json.error = true;
+            json.message = err.message;
+        }
+
+        res.json(json);
+    }
 }
 
 module.exports = AuthController;
