@@ -11,7 +11,7 @@ class AuthController {
             const service = AuthenticationJwtService.newInstance();
 
             const user = await service.authenticate(req.body.email, req.body.password);
-            const token = service.generate(user.email);
+            const token = service.generate(user.id);
 
             json.data = { 
                 token,

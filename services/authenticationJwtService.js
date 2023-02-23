@@ -10,7 +10,7 @@ class AuthenticationJwtService {
 
     async authenticate(email = '', password = ''){
 
-        let model = await UserModel.findOne({
+        const model = await UserModel.findOne({
             raw: true,
             where: {'email': email},
             attributes: { exclude: ['createdAt', 'updatedAt'] }
@@ -31,16 +31,16 @@ class AuthenticationJwtService {
         return model;
     }
 
-    generate(email = '') {
+    generate(userId = 0) {
 
-        return jwt.sign({email}, process.env.JWT_SECRET, { 
+        return jwt.sign({ id: userId }, process.env.JWT_SECRET, { 
             expiresIn: '1800s' 
         });
     }
 
     verify(token = '') {
 
-        return jwt.verify(token, process.env.JWT_SECRET);        
+        return jwt.verify(token, process.env.JWT_SECRET);
     }
 
     expires(token = ''){

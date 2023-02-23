@@ -12,15 +12,17 @@ class AuthenticationMiddleware {
             }
 
             const token = String(req.headers['authorization']).replace('Bearer ', '');
+            const payload = AuthenticationJwtService.newInstance().verify(token);
 
-            AuthenticationJwtService.newInstance().verify(token);
+            res.locals.user = payload.id;
+
             next();
         }
         catch(err) {
 
-            res.status(403).json({
+            res.status(401).json({
                 error: true, 
-                message: err.message
+                message: err.message || 'Unauthorized'
             });
         }
     }
