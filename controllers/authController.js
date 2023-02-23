@@ -1,4 +1,6 @@
 const AuthenticationJwtService = require('../services/authenticationJwtService');
+const UserService = require('../services/userService');
+const { permissionEnum } = require('../configs/permissions');
 
 class AuthController {
 
@@ -47,9 +49,41 @@ class AuthController {
         res.json(json);
     }
 
-    static async me() {
+    static async me(req, res) {
 
-        
+        let json = { error: false };
+
+        try {
+            
+            const mapper = Object.entries(permissionEnum).map(([key, val]) => [val, key]);
+
+            let user = await UserService.find(res.locals.user, true);
+
+            delete user.id;
+            delete user.profile_id;
+            delete user.profile.id;
+
+            console.log('mapper', mapper);
+            
+            user.profile.permissions.forEach(permission => {
+
+                delete permission.id;
+
+                permission.actions.forEach(action => {
+                    
+                    action = mapper[action] || action;
+                })
+            });
+
+            json.data = user;
+        }
+        catch(err){
+
+            json.error = true;
+            json.message = err.message;
+        }
+
+        res.json(json);
     }
 }
 

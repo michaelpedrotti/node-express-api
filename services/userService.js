@@ -1,6 +1,7 @@
 const UserModel = require('../models/userModel');
 const { passwordGenerator } = require('../helpers/passwordHelper');
 const AbstractService = require('./abstractService');
+const ProfileService = require('./profileService');
 
 class UserService extends AbstractService {
 
@@ -38,6 +39,11 @@ class UserService extends AbstractService {
 
         if(!model) {
             throw new Error('User was not found'); 
+        }
+
+        if(includes !== false){
+
+            model.profile = await ProfileService.find(model.profile_id, true);
         }
 
         return model;

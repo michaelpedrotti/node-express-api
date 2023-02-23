@@ -1,5 +1,6 @@
 const ProfileModel = require('../models/profileModel');
 const AbstractService = require('./abstractService');
+const PermissionService = require('./permissionService');
 
 class ProfileService extends AbstractService {
 
@@ -28,6 +29,14 @@ class ProfileService extends AbstractService {
 
         if(!model) {
             throw new Error('Profile was not found'); 
+        }
+
+        if(includes !== false) {
+
+            model.permissions = await PermissionService.all({
+                where: { profile_id: model.id},
+                attributes: ['id', 'resource', 'actions']
+            });
         }
 
         return model;
