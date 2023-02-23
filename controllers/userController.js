@@ -48,17 +48,18 @@ class UserController extends AbstractController {
                 throw new Error('Check fields');
             }
     
-            await UserService.transaction(async (transaction) => {
+            const model = await UserService.transaction(async (transaction) => {
         
                 const options = {
                     transaction: transaction,
                     // logging: console.log
                 };
         
-                await UserService.update(req.body, req.params.id, options);
+                return await UserService.update(req.body, req.params.id, options);
             });
 
             json.message = 'User was updated';
+            json.data = model.get({ plain: true });
         }
         catch(err){
         

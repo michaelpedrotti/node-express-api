@@ -16,7 +16,7 @@ class PermissionController extends AbstractController {
                     // logging: console.log
                 };
             
-                return await PermissionService.delete(req.params.id, options);
+                return await PermissionService.delete(req.params, options);
             });
 
             json.message = 'Permission was removed';
@@ -48,17 +48,18 @@ class PermissionController extends AbstractController {
                 throw new Error('Check fields');
             }
     
-            await PermissionService.transaction(async (transaction) => {
+            const model = await PermissionService.transaction(async (transaction) => {
         
                 const options = {
                     transaction: transaction,
                     // logging: console.log
                 };
 
-                await PermissionService.update({profile_id: req.params.profile, ...req.body}, req.params.id, options);
+                return await PermissionService.update(req.body, req.params, options);
             });
 
             json.message = 'Permission was updated';
+            json.data = model.get({ plain: true });
         }
         catch(err){
         
@@ -75,7 +76,7 @@ class PermissionController extends AbstractController {
 
         res.json({ 
             error: false, 
-            data: await PermissionService.find(req.params.id, true),
+            data: await PermissionService.find(req.params, true),
             form: {
                 profiles: await PermissionService.profiles(),
             }
@@ -137,7 +138,7 @@ class PermissionController extends AbstractController {
 
         res.json({ 
             error: false, 
-            data: await PermissionService.find(req.params.id, true)
+            data: await PermissionService.find(req.params, true)
         });
     }
 

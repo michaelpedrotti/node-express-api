@@ -14,11 +14,7 @@ class ProfileService extends AbstractService {
 
     static async update(data = {}, id = 0, options = {}){
 
-        const model = await ProfileModel.findByPk(id);
-
-        if(!model) {
-            throw new Error('Profile was not found'); 
-        }
+        const model = await ProfileService.find(id);
 
         model.set({ ...data });
         await model.save(options);
@@ -39,11 +35,7 @@ class ProfileService extends AbstractService {
 
     static async delete(id = 0, options = {}) {
 
-        const model = await ProfileModel.findByPk(id);
-
-        if(!model) {
-        throw new Error('Profile was not found'); 
-        }
+        const model = await ProfileService.find(id);
 
         await model.destroy(options);
 

@@ -22,13 +22,9 @@ class PermissionService extends AbstractService {
         return model;
     }
 
-    static async update(data = {}, id = 0, options = {}){
+    static async update(data = {}, keys = {id: 0, profile: 0}, options = {}){
 
-        const model = await PermissionModel.findByPk(id);
-
-        if(!model) {
-            throw new Error('Permission was not found'); 
-        }
+        const model = await PermissionService.find(keys);
 
         model.set({ ...data });
         await model.save(options);
@@ -36,24 +32,24 @@ class PermissionService extends AbstractService {
         return model;
     }
 
-    static async find(id = 0, includes = false){
+    static async find(keys = {id: 0, profile: 0}, includes = false){
 
-        const model = await PermissionModel.findByPk(id, {raw: true});
+        const model = await PermissionModel.findByPk(keys.id, {raw: true});
 
         if(!model) {
             throw new Error('Permission was not found'); 
         }
 
+        if(model.profile_id != keys.profile){
+            throw new Error('permission ' + model.profile_id + ' not belongs to profile ' + keys.profile); 
+        }
+
         return model;
     }
 
-    static async delete(id = 0, profile = 0, options = {}) {
+    static async delete(keys = {id: 0, profile: 0}, options = {}) {
 
-        const model = await PermissionModel.findByPk(id);
-
-        if(!model) {
-        throw new Error('Permission was not found'); 
-        }
+        const model = await PermissionService.find(keys);
 
         await model.destroy(options);
 
