@@ -50,6 +50,18 @@ class ProfileService extends AbstractService {
         return model;
     }
 
+    static async all(options = {}){
+
+        return await ProfileModel.findAll(Object.assign({
+                raw: true,
+                order: [['id', 'ASC']],
+                attributes: ['id', 'name'],
+                // logging: console.log
+            }, 
+            options
+        ));
+    }
+
     static async paginate(req, where = {}, joins = []) {
 
         let data = { count: 0, rows: [] };

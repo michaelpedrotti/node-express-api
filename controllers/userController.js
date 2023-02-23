@@ -1,5 +1,6 @@
 const AbstractController = require("./abstractController");
 const UserService = require("../services/userService");
+const ProfileService = require("../services/profileService");
 
 class UserController extends AbstractController {
 
@@ -72,7 +73,13 @@ class UserController extends AbstractController {
 
     static async edit(req, res) { 
 
-       UserController.show(req, res);
+        res.json({ 
+            error: false,
+            data: await UserService.find(req.params.id, true),
+            form: {
+                profiles: await ProfileService.all()
+            }
+        });
     }
 
     static async create(req, res) { 
@@ -90,7 +97,7 @@ class UserController extends AbstractController {
                 throw new Error('Check fields');
             }
         
-            const password =  await UserService.transaction(async (transaction) => {
+            const [ model, password ] =  await UserService.transaction(async (transaction) => {
         
                 const options = {
                     transaction: transaction,
@@ -101,7 +108,10 @@ class UserController extends AbstractController {
             });
 
             json.message = 'User was created';
-            json.data = { password };
+            json.data = model;
+            json.password = password;
+
+            res.status(201);
         }
         catch(err) {
             
@@ -116,12 +126,20 @@ class UserController extends AbstractController {
 
     static async new(req, res) {
 
-        res.json({ error: false });
+        res.json({ 
+            error: false,
+            form: {
+                profiles: await ProfileService.all()
+            }
+        });
     }
 
     static async show(req, res) { 
 
-        res.json({ error: false, data: await UserService.find(req.params.id, true)});
+        res.json({ 
+            error: false, 
+            data: await UserService.find(req.params.id, true)
+        });
     }
 
     static async index(req, res) {

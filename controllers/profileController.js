@@ -73,12 +73,14 @@ class ProfileController extends AbstractController {
 
     static async edit(req, res) { 
 
-       UserController.show(req, res);
+        res.json({ 
+            error: false,
+            data: await ProfileService.find(req.params.id, true),
+            form: {}
+        });
     }
 
     static async create(req, res) { 
-
-        console.log('create');
         
         let json = { error: false };
 
@@ -105,6 +107,8 @@ class ProfileController extends AbstractController {
 
             json.message = 'Profile was created';
             json.data = model;
+
+            res.status(201);
         }
         catch(err) {
             
@@ -119,12 +123,18 @@ class ProfileController extends AbstractController {
 
     static async new(req, res) {
 
-        res.json({ error: false });
+        res.json({ 
+            error: false,
+            form: {}
+        });
     }
 
     static async show(req, res) { 
 
-        res.json({ error: false, data: await ProfileService.find(req.params.id, true)});
+        res.json({ 
+            error: false, 
+            data: await ProfileService.find(req.params.id, true)
+        });
     }
 
     static async index(req, res) {

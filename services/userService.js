@@ -15,7 +15,11 @@ class UserService extends AbstractService {
             'password': encrypt
         }, options);
 
-        return String(password);
+        const user = model.get({ plain: true }); 
+
+        delete user.password;
+
+        return [ user, String(password) ];
     }
 
     static async update(data = {}, id = 0, options = {}){
@@ -67,6 +71,7 @@ class UserService extends AbstractService {
             data =  await UserModel.scope('show').findAndCountAll({
                 raw: true,
                 include: joins,
+                // logging: console.log,
                 attributes: ['id', 'email', 'name'],
                 where: where,
                 order: order,

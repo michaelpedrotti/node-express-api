@@ -104,14 +104,13 @@ class PermissionController extends AbstractController {
                     // logging: console.log
                 };
 
-
-                console.log('params ', req.params);
-        
                 return await PermissionService.create({profile_id: req.params.profile, ...req.body}, options);
             });
 
             json.message = 'Permission was created';
             json.data = model;
+
+            res.status(201);
         }
         catch(err) {
             
