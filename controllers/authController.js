@@ -28,7 +28,7 @@ class AuthController {
         res.json(json);
     }
 
-    static async verify(req, res){
+    static async verify(req, res) {
 
         let json = { error: false };
 
@@ -45,6 +45,11 @@ class AuthController {
         }
 
         res.json(json);
+    }
+
+    static async me() {
+
+        
     }
 }
 

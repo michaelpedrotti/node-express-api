@@ -6,7 +6,7 @@ class AuthorizationMiddleware {
 
         return async(req, res, next) => {
 
-            if(!AuthorizationService.newInstance().hasPermission(resource, action, res.locals.user)){
+            if(!await AuthorizationService.newInstance().hasPermission(resource, action, res.locals.user)){
 
                 res.status(403).json({
                     error: true, 
