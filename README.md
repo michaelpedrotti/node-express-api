@@ -24,32 +24,26 @@ Create a stable( latest ) image tag:
 docker build -t pedrotti/node:express .
 ```
 
-Create a stable( latest ) image tag:
-
-```sh
-docker build -t pedrotti/node:express .
-```
-
-Create a new tag with updated source code inside:
+Create a new production tag with updated source code inside:
 
 ```sh
 docker build --no-cache -f Dockerfile.prod -t pedrotti/node-express:v1.0 .
 ```
 
-Create a developement tag using nodemon:
+Create a new developement tag using nodemon:
 
 ```sh
 docker build --no-cache -f Dockerfile.dev -t pedrotti/node-express:dev .
 ```
 That tag is already setted on `docker-compose.yml`.
 
-Start a new instance at root project.
+Start a new instance at root project:
 
 ```sh
 docker-compose up -d
 ```
 
-Create e charge a new instance of database.
+Charge a new instance of database.
 
 ```sh
 docker exec node-api npx sequelize --help
