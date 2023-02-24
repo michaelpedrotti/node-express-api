@@ -63,8 +63,6 @@ class AuthController {
             delete user.profile_id;
             delete user.profile.id;
 
-            console.log('mapper', mapper);
-            
             user.profile.permissions.forEach(permission => {
 
                 delete permission.id;

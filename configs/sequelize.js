@@ -4,7 +4,8 @@ let configs = {};
 if(process.env.DB_CONNECTION_URL){
 
   configs[environment] = {
-    'url': process.env.DB_CONNECTION_URL // mysql://root:root@dbhost:3306/app
+    'url': process.env.DB_CONNECTION_URL, // mysql://root:root@dbhost:3306/app
+    "logging": console.log,
   };
 }
 else {
@@ -15,7 +16,8 @@ else {
     'password': process.env.DB_PASSWORD || 'root',
     'database': process.env.DB_NAME || 'app',
     'host': process.env.DB_HOST || 'dbhost',
-    'port': Number(process.env.DB_PORT || 3306)
+    'port': Number(process.env.DB_PORT || 3306),
+    "logging": console.log,
   };
 }
 
