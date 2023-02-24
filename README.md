@@ -16,6 +16,33 @@ You can use docker or serverless to start your new instance.
 
 ## 3.1 - Docker
 
+You need to create a image local to run a aplication. I created 3 images, those represent stages like stable, development and production.
+
+Create a stable( latest ) image tag:
+
+```sh
+docker build -t pedrotti/node:express .
+```
+
+Create a stable( latest ) image tag:
+
+```sh
+docker build -t pedrotti/node:express .
+```
+
+Create a new tag with updated source code inside:
+
+```sh
+docker build --no-cache -f Dockerfile.prod -t pedrotti/node-express:v1.0 .
+```
+
+Create a developement tag using nodemon:
+
+```sh
+docker build --no-cache -f Dockerfile.dev -t pedrotti/node-express:dev .
+```
+That tag is already setted on `docker-compose.yml`.
+
 Start a new instance at root project.
 
 ```sh
@@ -28,6 +55,12 @@ Create e charge a new instance of database.
 docker exec node-api npx sequelize --help
 docker exec node-api npx sequelize db:migrate
 docker exec node-api npx sequelize db:seed:all 
+```
+
+Watch logs from nodemon:
+
+```sh
+docker logs --follow node-api 
 ```
 
 ## 3.2 - Serverless
