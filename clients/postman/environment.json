@@ -1,0 +1,33 @@
+{
+	"id": "6a11157b-1d9c-493a-ab7a-84c58c8caf6e",
+	"name": "API Rest",
+	"values": [
+		{
+			"key": "permission_id",
+			"value": "1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "profile_id",
+			"value": "1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "user_id",
+			"value": "1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-02-24T14:31:09.281Z",
+	"_postman_exported_using": "Postman/10.10.8-230222-0843"
+}

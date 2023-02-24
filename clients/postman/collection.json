@@ -15,6 +15,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -23,12 +33,14 @@
 								{
 									"key": "field[name]",
 									"value": "cic",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "order[id]",
 									"value": "ASC",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -52,6 +64,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -92,6 +114,16 @@
 				{
 					"name": "Store",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -104,7 +136,12 @@
 								},
 								{
 									"key": "email",
-									"value": "curly@xyz.io",
+									"value": "curly4@xyz.io",
+									"type": "text"
+								},
+								{
+									"key": "profile_id",
+									"value": "1",
 									"type": "text"
 								}
 							]
@@ -126,6 +163,16 @@
 				{
 					"name": "Show",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -146,6 +193,16 @@
 				{
 					"name": "Edit",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -167,6 +224,16 @@
 				{
 					"name": "Update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -202,6 +269,16 @@
 				{
 					"name": "Destroy",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -233,6 +310,16 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"body": {
@@ -261,22 +348,21 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"body": {
 									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "resource",
-											"value": "user",
-											"type": "text"
-										},
-										{
-											"key": "actions",
-											"value": "[\"A\"]",
-											"type": "text"
-										}
-									]
+									"urlencoded": []
 								},
 								"url": {
 									"raw": "http://localhost:3000/profile/{{ profile_id }}/permission/new",
@@ -298,6 +384,16 @@
 						{
 							"name": "Store",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -334,10 +430,20 @@
 						{
 							"name": "Show",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/profile/{{profile_id}}/permission/1",
+									"raw": "http://localhost:3000/profile/{{profile_id}}/permission/{{permission_id}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -347,7 +453,7 @@
 										"profile",
 										"{{profile_id}}",
 										"permission",
-										"1"
+										"{{permission_id}}"
 									]
 								}
 							},
@@ -359,7 +465,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/profile/{{profile_id}}/permission/3/edit",
+									"raw": "http://localhost:3000/profile/{{profile_id}}/permission/{{permission_id}}/edit",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -369,7 +475,7 @@
 										"profile",
 										"{{profile_id}}",
 										"permission",
-										"3",
+										"{{permission_id}}",
 										"edit"
 									]
 								}
@@ -392,7 +498,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:3000/profile/{{profile_id}}/permission/3",
+									"raw": "http://localhost:3000/profile/{{profile_id}}/permission/{{permission_id}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -402,7 +508,7 @@
 										"profile",
 										"{{profile_id}}",
 										"permission",
-										"3"
+										"{{permission_id}}"
 									]
 								}
 							},
@@ -414,7 +520,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3000/profile/{{profile_id}}/permission/3",
+									"raw": "http://localhost:3000/profile/{{profile_id}}/permission/{{permission_id}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -424,7 +530,7 @@
 										"profile",
 										"{{profile_id}}",
 										"permission",
-										"3"
+										"{{permission_id}}"
 									]
 								}
 							},
@@ -438,6 +544,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -464,6 +580,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -471,7 +597,7 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Admin",
+									"value": "Support",
 									"type": "text"
 								}
 							]
@@ -494,6 +620,16 @@
 				{
 					"name": "Store",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -523,10 +659,20 @@
 				{
 					"name": "Show",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/profile/1",
+							"raw": "http://localhost:3000/profile/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -534,7 +680,7 @@
 							"port": "3000",
 							"path": [
 								"profile",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -543,6 +689,16 @@
 				{
 					"name": "Edit",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -564,10 +720,30 @@
 				{
 					"name": "Update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "support",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "http://localhost:3000/profile/10",
+							"raw": "http://localhost:3000/profile/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -575,7 +751,7 @@
 							"port": "3000",
 							"path": [
 								"profile",
-								"10"
+								"2"
 							]
 						}
 					},
@@ -584,10 +760,20 @@
 				{
 					"name": "Destroy",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/profile/1",
+							"raw": "http://localhost:3000/profile/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -595,7 +781,133 @@
 							"port": "3000",
 							"path": [
 								"profile",
-								"1"
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "curly@xyz.io",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "02222203",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1cmx5QHh5ei5pbyIsImlhdCI6MTY3NzA5NTk4NiwiZXhwIjoxNjc3MDk3Nzg2fQ.PrZML1nVRjp9OswOcMrWMwLTOyWDTLwsPnA8zujPyXY2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/verify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1cmx5QHh5ei5pbyIsImlhdCI6MTY3NzA5NTk4NiwiZXhwIjoxNjc3MDk3Nzg2fQ.PrZML1nVRjp9OswOcMrWMwLTOyWDTLwsPnA8zujPyXY2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"me"
 							]
 						}
 					},
