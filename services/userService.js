@@ -72,7 +72,7 @@ class UserService extends AbstractService {
 
         try {
 
-            const { order } = await super.filter(req.body, where, undefined, UserModel.getAttributes());
+            const { order } = await super.filter(req.query, where, undefined, UserModel.getAttributes());
 
             data =  await UserModel.scope('show').findAndCountAll({
                 raw: true,
@@ -81,8 +81,8 @@ class UserService extends AbstractService {
                 attributes: ['id', 'email', 'name'],
                 where: where,
                 order: order,
-                limit: Number(req.query.length || 10),
-                offset: Number(req.query.start || 0),
+                limit: Number(req.query.limit || 10),
+                offset: Number(req.query.offset || 0),
             });
         }
         catch(err){

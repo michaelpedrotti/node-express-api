@@ -77,15 +77,15 @@ class ProfileService extends AbstractService {
 
          try {
 
-            const { order } = await super.filter(req.body, where, undefined, ProfileModel.getAttributes());
+            const { order } = await super.filter(req.query, where, undefined, ProfileModel.getAttributes());
 
             data =  await ProfileModel.findAndCountAll({
                 raw: true,
                 include: joins,
                 where: where,
                 order: order,
-                limit: Number(req.query.length || 10),
-                offset: Number(req.query.start || 0),
+                limit: Number(req.query.limit || 10),
+                offset: Number(req.query.offset || 0),
             });
         }
         catch(err){
