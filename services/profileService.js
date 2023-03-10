@@ -15,7 +15,11 @@ class ProfileService extends AbstractService {
 
     static async update(data = {}, id = 0, options = {}){
 
-        const model = await ProfileService.find(id);
+        const model = await ProfileModel.findByPk(id);
+
+        if(!model) {
+            throw new Error('Profile was not found'); 
+        }
 
         model.set({ ...data });
         await model.save(options);
@@ -25,7 +29,7 @@ class ProfileService extends AbstractService {
 
     static async find(id = 0, includes = false){
 
-        const model = await ProfileModel.findByPk(id, {raw: true});
+        const model = await ProfileModel.findByPk(id);
 
         if(!model) {
             throw new Error('Profile was not found'); 
@@ -33,9 +37,11 @@ class ProfileService extends AbstractService {
 
         if(includes !== false) {
 
-            model.permissions = await PermissionService.all({
-                where: { profile_id: model.id},
-                attributes: ['id', 'resource', 'actions']
+            model.set({
+                "permissions": await PermissionService.all({
+                    where: { profile_id: model.id},
+                    attributes: ['id', 'resource', 'actions']
+                })
             });
         }
 
@@ -44,7 +50,11 @@ class ProfileService extends AbstractService {
 
     static async delete(id = 0, options = {}) {
 
-        const model = await ProfileService.find(id);
+        const model = await ProfileModel.findByPk(id);
+
+        if(!model) {
+            throw new Error('Profile was not found'); 
+        }
 
         await model.destroy(options);
 

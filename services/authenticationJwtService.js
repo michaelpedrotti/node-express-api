@@ -23,7 +23,7 @@ class AuthenticationJwtService {
     
         if(!passwordCompare(password, model['password'])){
     
-            throw new Error(_('E-mail or Password were wrong'));
+            throw new Error('E-mail or Password were wrong');
         }
     
         delete model['password'];

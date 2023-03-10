@@ -25,7 +25,11 @@ class UserService extends AbstractService {
 
     static async update(data = {}, id = 0, options = {}){
 
-        const model = await UserService.find(id);
+        const model = await UserModel.findByPk(id);
+
+        if(!model) {
+            throw new Error('User was not found'); 
+        }
 
         model.set({ ...data });
         await model.save(options);
@@ -51,7 +55,11 @@ class UserService extends AbstractService {
 
     static async delete(id = 0, options = {}) {
 
-        const model = await UserService.find(id);
+        const model = await UserModel.findByPk(id);
+
+        if(!model) {
+            throw new Error('User was not found'); 
+        }
 
         await model.destroy(options);
 

@@ -24,7 +24,11 @@ class PermissionService extends AbstractService {
 
     static async update(data = {}, keys = {id: 0, profile: 0}, options = {}){
 
-        const model = await PermissionService.find(keys);
+        const model = await PermissionModel.findByPk(keys.id);
+
+        if(!model) {
+            throw new Error('Permission was not found'); 
+        }
 
         model.set({ ...data });
         await model.save(options);
@@ -34,7 +38,7 @@ class PermissionService extends AbstractService {
 
     static async find(keys = {id: 0, profile: 0}, includes = false){
 
-        const model = await PermissionModel.findByPk(keys.id, {raw: true});
+        const model = await PermissionModel.findByPk(keys.id);
 
         if(!model) {
             throw new Error('Permission was not found'); 
@@ -49,7 +53,11 @@ class PermissionService extends AbstractService {
 
     static async delete(keys = {id: 0, profile: 0}, options = {}) {
 
-        const model = await PermissionService.find(keys);
+        const model = await PermissionModel.findByPk(keys.id);
+
+        if(!model) {
+            throw new Error('Permission was not found'); 
+        }
 
         await model.destroy(options);
 
