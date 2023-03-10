@@ -1,7 +1,6 @@
 service: node-express-rest
 
 plugins:
-  - serverless-scriptable-plugin
   - serverless-sequelize-migrations
   - serverless-offline
 

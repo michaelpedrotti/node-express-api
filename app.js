@@ -9,7 +9,7 @@ const app = express();
 // Config
 //=================================================================
 // https://expressjs.com/en/resources/middleware/cors.html
-app.use(cors({ credentials: true, origin: true }));
+app.use(cors({ credentials: true  }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
