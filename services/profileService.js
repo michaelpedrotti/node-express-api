@@ -29,7 +29,7 @@ class ProfileService extends AbstractService {
 
     static async find(id = 0, includes = false){
 
-        const model = await ProfileModel.findByPk(id);
+        const model = await ProfileModel.findByPk(id, { plain: true });
 
         if(!model) {
             throw new Error('Profile was not found'); 
@@ -37,11 +37,9 @@ class ProfileService extends AbstractService {
 
         if(includes !== false) {
 
-            model.set({
-                "permissions": await PermissionService.all({
-                    where: { profile_id: model.id},
-                    attributes: ['id', 'resource', 'actions']
-                })
+            model.permissions = await PermissionService.all({
+                where: { profile_id: model.id},
+                attributes: ['id', 'resource', 'actions']
             });
         }
 
