@@ -1,5 +1,6 @@
 const AbstractController = require("./abstractController");
 const PermissionService = require("../services/permissionService");
+const { permissionEnum } = require("../configs/permissions");
 
 class PermissionController extends AbstractController {
 
@@ -78,7 +79,7 @@ class PermissionController extends AbstractController {
             error: false, 
             data: await PermissionService.find(req.params, true),
             form: {
-                profiles: await PermissionService.profiles(),
+                actions: permissionEnum,
             }
         });
     }
@@ -129,7 +130,7 @@ class PermissionController extends AbstractController {
         res.json({ 
             error: false, 
             form: {
-                profiles: await PermissionService.profiles(),
+                actions: permissionEnum,
             }
         });
     }
@@ -145,8 +146,9 @@ class PermissionController extends AbstractController {
     static async index(req, res) {
 
         let json = { error: false, count: 0, rows: [] };
+        let where = {'profile_id': req.params['profile']};
 
-        const { count, rows } = await PermissionService.paginate(req);
+        const { count, rows } = await PermissionService.paginate(req, where);
 
         if(count > 0){
 
