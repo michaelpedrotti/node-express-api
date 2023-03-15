@@ -1,6 +1,6 @@
 module.exports.permissionEnum = {
-    'create': 'C',
     'read': 'R',
+    'create': 'C',
     'update': 'U',
     'delete': 'D'
 };

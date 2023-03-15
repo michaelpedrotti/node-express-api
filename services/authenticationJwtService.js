@@ -34,7 +34,7 @@ class AuthenticationJwtService {
     generate(userId = 0) {
 
         return jwt.sign({ id: userId }, process.env.JWT_SECRET, { 
-            expiresIn: '1800s' 
+            expiresIn: '24h' 
         });
     }
 

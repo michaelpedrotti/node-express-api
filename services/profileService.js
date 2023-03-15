@@ -1,19 +1,34 @@
 const ProfileModel = require('../models/profileModel');
 const AbstractService = require('./abstractService');
 const PermissionService = require('./permissionService');
+const { Op } = require('sequelize');
 
 class ProfileService extends AbstractService {
-
+    
     static async create(data = {}, options = {}) {
         
         const model = await ProfileModel.create({
             name: data['name']
         }, options);
 
+        if(data.permissions){
+
+            for (const [resource, actions] of Object.entries(data.permissions)) {
+
+                PermissionService.create({
+                    'resource': resource,
+                    'actions': actions,
+                    'profile_id': model.id,
+                });
+            }   
+        }
+
         return model;
     }
 
     static async update(data = {}, id = 0, options = {}){
+
+        console.log('data', data);
 
         const model = await ProfileModel.findByPk(id);
 
@@ -24,12 +39,73 @@ class ProfileService extends AbstractService {
         model.set({ ...data });
         await model.save(options);
 
+
+        if(data.permissions){
+
+            const deleted = await PermissionService.all({
+                // logging: console.log,
+                attributes: ['id'],
+                where: {
+                    profile_id: model.id,
+                    resource: {[Op.notIn]: Object.keys(data.permissions)}
+                }
+            });
+
+            if(deleted){
+
+                deleted.map(async(row) => {
+
+                    await PermissionService.delete({id: row.id, profile: model.id}, options);
+                });
+            }
+            
+            const saved = Object.fromEntries(
+                (await PermissionService.all({
+                    // logging: console.log,
+                    attributes: ['id', 'resource'],
+                    where: {
+                        profile_id: model.id,
+                        resource: {[Op.in]: Object.keys(data.permissions)}
+                    }
+                }))
+                .map(row => [row.resource, row.id])
+            );
+
+            console.log('saved', saved);
+
+
+            for (const [resource, actions] of Object.entries(data.permissions)) {
+
+                if(saved[resource]){
+
+                    console.log(saved[resource], resource);
+
+                    await PermissionService.update(
+                        {"actions": actions}, 
+                        {id: saved[resource], profile: model.id}, 
+                        options
+                    );
+                }
+                else {
+
+                    await PermissionService.create({
+                        'resource': resource,
+                        'actions': actions,
+                        'profile_id': model.id,
+                    }, options);
+                }
+
+                //PermissionService.create();
+            }   
+        }
+
+
         return model;
     }
 
     static async find(id = 0, includes = false){
 
-        const model = await ProfileModel.findByPk(id, { plain: true });
+        const model = await ProfileModel.findByPk(id, { raw: true });
 
         if(!model) {
             throw new Error('Profile was not found'); 

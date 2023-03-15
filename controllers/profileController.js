@@ -1,5 +1,7 @@
 const AbstractController = require("./abstractController");
 const ProfileService = require("../services/profileService");
+const { permissionEnum } = require("../configs/permissions");
+const { resourceList } = require("../configs/resources");
 
 class ProfileController extends AbstractController {
     
@@ -77,7 +79,10 @@ class ProfileController extends AbstractController {
         res.json({ 
             error: false,
             data: await ProfileService.find(req.params.id, true),
-            form: {}
+            form: {
+                resources: resourceList,
+                actions: permissionEnum
+            }
         });
     }
 
@@ -126,7 +131,10 @@ class ProfileController extends AbstractController {
 
         res.json({ 
             error: false,
-            form: {}
+            form: {
+                resources: resourceList,
+                actions: permissionEnum
+            }
         });
     }
 

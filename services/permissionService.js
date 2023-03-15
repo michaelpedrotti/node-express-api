@@ -69,7 +69,7 @@ class PermissionService extends AbstractService {
         return await PermissionModel.findAll(Object.assign({
                 raw: true,
                 order: [['id', 'ASC']],
-                attributes: ['id', 'name'],
+                attributes: ['id', 'resource'],
                 // logging: console.log
             }, 
             options
