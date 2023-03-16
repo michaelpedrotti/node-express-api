@@ -7,7 +7,7 @@ services:
       - /usr/src/app/node_modules
       - .:/usr/src/app
     ports:
-      - "3000:3000"
+      - "8080:3000"
     environment:
       DB_CONNECTION_URL: 'mysql://root:root@dbhost:3306/app'
       DB_DIALECT: 'mysql'

@@ -52,13 +52,11 @@ class SettingController extends AbstractController {
     }
 
     static async edit(req, res) { 
-        console.log('asdfasd');
+
         res.json({ 
             error: false,
             data: await UserService.find(res.locals.user, true),
-            form: {
-                
-            }
+            form: { }
         });
     }
 }
