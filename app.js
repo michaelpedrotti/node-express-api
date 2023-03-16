@@ -11,10 +11,10 @@ const app = express();
 // https://expressjs.com/en/resources/middleware/cors.html
 app.use(cors({ credentials: true  }));
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(ErrorHandlingMiddleware.register);

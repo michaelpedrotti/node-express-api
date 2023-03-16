@@ -15,6 +15,7 @@ class AuthenticationMiddleware {
             const payload = AuthenticationJwtService.newInstance().verify(token);
 
             res.locals.user = payload.id;
+            req.user = payload.id;
 
             next();
         }

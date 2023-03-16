@@ -71,18 +71,15 @@ class ProfileService extends AbstractService {
                 .map(row => [row.resource, row.id])
             );
 
-            console.log('saved', saved);
-
-
             for (const [resource, actions] of Object.entries(data.permissions)) {
 
                 if(saved[resource]){
 
-                    console.log(saved[resource], resource);
+                    let id = saved[resource];
 
                     await PermissionService.update(
                         {"actions": actions}, 
-                        {id: saved[resource], profile: model.id}, 
+                        {id: id, profile: model.id}, 
                         options
                     );
                 }
@@ -94,11 +91,8 @@ class ProfileService extends AbstractService {
                         'profile_id': model.id,
                     }, options);
                 }
-
-                //PermissionService.create();
             }   
         }
-
 
         return model;
     }
@@ -157,6 +151,8 @@ class ProfileService extends AbstractService {
 
             data =  await ProfileModel.findAndCountAll({
                 raw: true,
+                logging: console.log,
+                subQuery: false,
                 include: joins,
                 where: where,
                 order: order,
