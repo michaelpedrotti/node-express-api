@@ -22,12 +22,38 @@ class GithubUserController {
 
     static async detail(req, res){
 
-        res.json({"ok": true});
+        
+        let json = {"error": false};
+
+        try {
+
+            json["rows"] = await GithubService.newInstance().getUser(req.params.username, req.query);
+        }
+        catch(e){
+
+            json["error"] = true;
+            json["message"] = e.message;
+        }
+
+        res.json(json);
     }
 
     static async repos(req, res){
 
-        res.json({"ok": true});
+        
+        let json = {"error": false};
+
+        try {
+
+            json["rows"] = await GithubService.newInstance().listReposUser(req.params.username, req.query);
+        }
+        catch(e){
+
+            json["error"] = true;
+            json["message"] = e.message;
+        }
+
+        res.json(json);
     }
 }
 

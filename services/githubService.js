@@ -43,6 +43,38 @@ class GithubService {
         return await this.doRequest('GET', path);
     }
 
+    /**
+     *
+     * @link https://docs.github.com/pt/rest/users/users?apiVersion=2022-11-28#get-a-user 
+     */
+    async getUser(username = "", params = {}){
+
+        let path = '/users/' + username;
+        let query = new URLSearchParams(params).toString();
+
+        if(query){
+            path += '?' + query;
+        }
+
+        return await this.doRequest('GET', path);
+    }
+
+    /**
+     * 
+     * @link https://docs.github.com/pt/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-a-user 
+     */
+    async listReposUser(username = "", params = {}){
+
+        let path = '/users/' + username + '/repos';
+        let query = new URLSearchParams(params).toString();
+
+        if(query){
+            path += '?' + query;
+        }
+
+        return await this.doRequest('GET', path);
+    }
+
     static newInstance(){
 
         return new GithubService();
