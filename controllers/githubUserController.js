@@ -1,5 +1,4 @@
 const GithubService = require("../services/githubService");
-const AbstractController = require("./abstractController");
 
 class GithubUserController {
 
@@ -51,7 +50,7 @@ class GithubUserController {
 
         try {
 
-            json["data"] = await GithubService.newInstance().listReposUser(req.params.username, req.query);
+            json["rows"] = await GithubService.newInstance().listReposUser(req.params.username, req.query);
         }
         catch(e){
 
