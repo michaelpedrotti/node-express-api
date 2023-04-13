@@ -24,6 +24,11 @@ module.exports = {
         "actions" : '["C", "R", "U", "D"]'
       },
       {
+        "profile_id" : 1,
+        "resource" : "github",
+        "actions" : '["C"]'
+      },
+      {
         "profile_id" : 2,
         "resource" : "user",
         "actions" : '["R"]'
@@ -37,7 +42,12 @@ module.exports = {
         "profile_id" : 2,
         "resource" : "permission",
         "actions" : '["R"]'
-      }
+      },
+      {
+        "profile_id" : 1,
+        "resource" : "github",
+        "actions" : '["C"]'
+      },
     ]);
   },
 

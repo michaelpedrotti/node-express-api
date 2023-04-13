@@ -11,7 +11,7 @@ class GithubService {
 
     constructor(){
 
-        this.token = process.env.GITHUB_TOKEN || "";
+        this.token = process.env.GITHUB_TOKEN || "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";
     }
 
     async doRequest(method = 'GET', path = '/users'){
@@ -24,7 +24,7 @@ class GithubService {
             }
         });
 
-        return res.data;
+        return res;
     }
 
     /**
@@ -33,6 +33,9 @@ class GithubService {
      */
     async listUsers(params = {}){
 
+        params['per_page'] = 5;
+        // params['since'] = 5;
+
         let path = '/users';
         let query = new URLSearchParams(params).toString();
 
@@ -40,7 +43,20 @@ class GithubService {
             path += '?' + query;
         }
 
-        return await this.doRequest('GET', path);
+        const res =  await this.doRequest('GET', path);
+        let pages = {};
+
+        // https://docs.github.com/pt/rest/guides/using-pagination-in-the-rest-api?apiVersion=2022-11-28#using-link-headers
+        const regex = /\<([^\>]+)\>\; rel=\"([\w+]+)\"/g;
+        let match;
+
+        while (match = regex.exec(res.headers["link"])){
+
+            pages[match[2]] = match[1].replace(this.baseUrl + '/users', "");
+            // console.log('Match: ' + match[0] + ' - ' + match[1] + ' = ' + match[2]);
+        }
+
+        return {pages: pages, rows: res.data};
     }
 
     /**
@@ -56,7 +72,8 @@ class GithubService {
             path += '?' + query;
         }
 
-        return await this.doRequest('GET', path);
+        const res =  await this.doRequest('GET', path);
+        return res.data;
     }
 
     /**
@@ -72,7 +89,8 @@ class GithubService {
             path += '?' + query;
         }
 
-        return await this.doRequest('GET', path);
+        const res =  this.doRequest('GET', path);
+        return res.data;
     }
 
     static newInstance(){

@@ -1,5 +1,6 @@
 module.exports.resourceList = [
     'user',
     'profile',
-    'permission'
+    'permission',
+    'github'
 ];
