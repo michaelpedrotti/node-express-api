@@ -33,7 +33,7 @@ class GithubUserController {
 
         try {
 
-            json["rows"] = await GithubService.newInstance().getUser(req.params.username, req.query);
+            json["data"] = await GithubService.newInstance().getUser(req.params.username, req.query);
         }
         catch(e){
 
@@ -51,7 +51,7 @@ class GithubUserController {
 
         try {
 
-            json["rows"] = await GithubService.newInstance().listReposUser(req.params.username, req.query);
+            json["data"] = await GithubService.newInstance().listReposUser(req.params.username, req.query);
         }
         catch(e){
 
