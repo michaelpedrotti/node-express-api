@@ -30,6 +30,7 @@ global.sequelize = database();
 app.use('/user', require('./routes/user'));
 app.use('/profile', require('./routes/profile'));
 app.use('/auth', require('./routes/auth'));
+app.use('/api', require('./routes/github'));
 app.use('/', require('./routes/main'));
 
 module.exports = app;

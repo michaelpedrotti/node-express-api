@@ -16,6 +16,7 @@ services:
       DB_USERNAME: 'root'
       DB_PASSWORD: 'root'
       DB_NAME: 'app'
+      GITHUB_TOKEN: ''
       JWT_SECRET: '5f04828ed29602f8dfe1822d20ba58ff10aa4828b8e986e357658423cfa971f1'
     links:
       - mysql:dbhost
