@@ -11,7 +11,7 @@ class GithubService {
 
     constructor(){
 
-        this.token = process.env.GITHUB_TOKEN || "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";
+        this.token = process.env.GITHUB_TOKEN || "";
     }
 
     async doRequest(method = 'GET', path = '/users'){
