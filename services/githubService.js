@@ -11,7 +11,7 @@ class GithubService {
 
     constructor(){
 
-        this.token = process.env.GITHUB_TOKEN || "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";
+        this.token = process.env.GITHUB_TOKEN || "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";
     }
 
     async doRequest(method = 'GET', path = '/users'){
@@ -33,8 +33,9 @@ class GithubService {
      */
     async listUsers(params = {}){
 
-        params['per_page'] = 5;
-        // params['since'] = 5;
+        if(!params['per_page']){
+            params['per_page'] = 5;
+        }
 
         let path = '/users';
         let query = new URLSearchParams(params).toString();
@@ -89,7 +90,7 @@ class GithubService {
             path += '?' + query;
         }
 
-        const res =  this.doRequest('GET', path);
+        const res =  await this.doRequest('GET', path);
         return res.data;
     }
 
